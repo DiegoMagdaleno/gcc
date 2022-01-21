@@ -1,0 +1,61 @@
+Differences and port info:
+
+
+This change was done to MUSL
+==============================
+
+- We define __LIBSYSTEM__ in our include/features.h header in order to detect "libSystem" as the default libc, instead of having to rely on heuristic tests to detect musl.
+
+Config.sub
+==============
+
+- In line 1687 we add "system" as a libc option
+- In line 1698 we add "Utopia" as an operating system
+- In line 1775 we add both "linux-utopia*" and "linux-system*" to the list of valid kernel libc implementation
+- We add "-system" to line 1749 in order to tell that our libc is not a standalone operating system
+
+Config.gcc
+=================
+If the target is on linux-utopia the default C library becomes libSystem
+Define UTOPIA_DEFAULT if on Utopia targets
+
+
+Fixincludes/mkfixinc.sh
+=============================
+
+Since libSystem is based on musl we still need to fix the includes, we do this on line23 of this file
+
+Stack protector
+===========================
+
+Again since we are derived from musl, we want to tell GCC that we provide a stack protector by default, this can be done by enabling:  gcc_cv_libc_provides_ssp=yes when our target is linux-system*
+
+Ability of dl_iterate_phdr
+============================
+
+Since we are derived on Musl, we need to tell GCC our implementation also provides this ability, so we tell GCC that:     gcc_cv_target_dl_iterate_phdr=yes when compiling for linux-system*
+
+glibc-stdint.h
+===========================
+We should define OPTION_SYSTEM as "0" and fix the macros here, to also provide our implementation of datatypes
+
+linux.c
+=============================
+As of know linux_libc_has_function only returns true if glibc or musl, we can return "true" if we are on libsystem too
+
+Linux.h
+===========================
+Add libSystem to the singlelibc configuration, here we also need to changes on the stage that gcc chooses a dynamic linker, mainly, in lines 75 where it is generated
+
+As per comment: /* musl avoids problematic includes by rearranging the include directories.
+ * Unfortunately, this is mostly duplicated from cppdefault.c */ 
+ 
+ We would need to see if we want to fix on libSystem side or fix it on GCC side using the same patch musl got merged upstream
+ 
+ Linux.opt
+=================
+Add msystem to the options
+
+libstdc++v3/configure.host
+=========================
+Tell the compiler we are a generic OS if we are on libSystem
