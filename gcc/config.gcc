@@ -659,7 +659,7 @@ case ${target} in
 esac
 
 # Common C libraries.
-tm_defines="$tm_defines LIBC_GLIBC=1 LIBC_UCLIBC=2 LIBC_BIONIC=3 LIBC_MUSL=4"
+tm_defines="$tm_defines LIBC_GLIBC=1 LIBC_UCLIBC=2 LIBC_BIONIC=3 LIBC_MUSL=4 LIBC_LIBSYSTEM=5"
 
 # 32-bit x86 processors supported by --with-arch=.  Each processor
 # MUST be separated by exactly one space.
@@ -854,7 +854,7 @@ case ${target} in
     *-*-*android*)
       tm_defines="$tm_defines DEFAULT_LIBC=LIBC_BIONIC"
       ;;
-	*-*-*libsystem*)
+	*-*-*libsystem* | *-*-*utopia*)
 	  tm_defines="$tm_defines DEFAULT_LIBC=LIBC_LIBSYSTEM"
 	  ;;
     *-*-*uclibc* | *-*-uclinuxfdpiceabi)
@@ -3052,7 +3052,7 @@ powerpc*-*-linux*)
 		tm_file="${tm_file} rs6000/linuxaltivec.h" ;;
 	esac
 	case ${target} in
-	    *-linux*-musl*)
+	    *-linux*-musl* | *-linux*-libsystem* | *-linux*-utopia*)
 		enable_secureplt=yes ;;
 	esac
 	if test x${enable_secureplt} = xyes; then
@@ -3624,6 +3624,9 @@ esac
 case ${target} in
 *-linux-musl*)
 	tmake_file="${tmake_file} t-musl"
+	;;
+*-linux-libsystem*)
+	tmake_file="${tmake_file} t-libsystem"
 	;;
 *-linux-uclibc*)
 	tmake_file="${tmake_file} t-uclibc"
