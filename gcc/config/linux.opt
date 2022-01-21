@@ -34,3 +34,7 @@ Use uClibc C library.
 mmusl
 Target RejectNegative Var(linux_libc,LIBC_MUSL) Negative(mbionic)
 Use musl C library.
+
+mlibsystem
+Target RejectNegative Var(linux_libc,LIBC_LIBSYSTEM) Negavite(mmusl)
+Use libSystem C library.
