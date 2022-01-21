@@ -24,3 +24,6 @@ along with GCC; see the file COPYING3.  If not see
 
 #undef MUSL_DYNAMIC_LINKER
 #define MUSL_DYNAMIC_LINKER "/lib/ld-musl-i386.so.1"
+
+#undef LIBSYSTEM_DYNAMIC_LINKER
+#define LIBSYSTEM_DYNAMIC_LINKER "/Core/Binaries/linkeri368"

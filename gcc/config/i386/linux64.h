@@ -37,3 +37,10 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define MUSL_DYNAMIC_LINKER64 "/lib/ld-musl-x86_64.so.1"
 #undef MUSL_DYNAMIC_LINKERX32
 #define MUSL_DYNAMIC_LINKERX32 "/lib/ld-musl-x32.so.1"
+
+#undef LIBSYSTEM_DYNAMIC_LINKER32
+#define LIBSYSTEM_DYNAMIC_LINKER32 "/Core/Binaries/linkeri386"
+#undef LIBSYSTEM_DYNAMIC_LINKER64
+#define LIBSYSTEM_DYNAMIC_LINKER64 "/Core/Binaries/linkerx86_64"
+#undef LIBSYSTEM_DYNAMIC_LINKERX32
+#define LIBSYSTEM_DYNAMIC_LINKERX32 "/Core/Binaries/linkerx32"
