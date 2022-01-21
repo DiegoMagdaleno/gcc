@@ -6624,8 +6624,8 @@ AC_CACHE_CHECK(__stack_chk_fail in target C library,
     gcc_cv_libc_provides_ssp=no
   else
     case "$target" in
-       *-*-musl*)
-	 # All versions of musl provide stack protector
+       *-*-musl* | *-*-libsystem* | *-*-utopia*)
+	 # All versions of musl and derivates (like libSystem) provide stack protector
 	 gcc_cv_libc_provides_ssp=yes;;
        *-*-linux* | *-*-kfreebsd*-gnu)
       # glibc 2.4 and later provides __stack_chk_fail and
@@ -6817,7 +6817,7 @@ case "$target" in
       gcc_cv_target_dl_iterate_phdr=no
     fi
     ;;
-  *-linux-musl*)
+  *-linux-musl* | *-linux-libsystem* | *-linux-utopia*)
     gcc_cv_target_dl_iterate_phdr=yes
     ;;
 esac
