@@ -28,6 +28,16 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define OPTION_MUSL 0
 #endif
 
+/* Since libSystem is a musl derivate, all targets using libSystem should
+ * include this file and ensure OPTION_LIBSYSTEM is defined correctly, before using
+ * TYPE macros
+*/
+#ifndef OPTION_LIBSYSTEM
+#define OPTION_LIBSYSTEM 0
+#endif
+
+#define NEEDS_CORRECTION (OPTION_MUSL == 1 || OPTION_LIBSYSTEM == 1)
+
 #define SIG_ATOMIC_TYPE "int"
 
 #define INT8_TYPE "signed char"
@@ -49,12 +59,12 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #define UINT_LEAST64_TYPE (LONG_TYPE_SIZE == 64 ? "long unsigned int" : "long long unsigned int")
 
 #define INT_FAST8_TYPE "signed char"
-#define INT_FAST16_TYPE (LONG_TYPE_SIZE == 64 && !OPTION_MUSL ? "long int" : "int")
-#define INT_FAST32_TYPE (LONG_TYPE_SIZE == 64 && !OPTION_MUSL ? "long int" : "int")
+#define INT_FAST16_TYPE (LONG_TYPE_SIZE == 64 && !NEEDS_CORRECTION ? "long int" : "int")
+#define INT_FAST32_TYPE (LONG_TYPE_SIZE == 64 && !NEEDS_CORRECTION ? "long int" : "int")
 #define INT_FAST64_TYPE (LONG_TYPE_SIZE == 64 ? "long int" : "long long int")
 #define UINT_FAST8_TYPE "unsigned char"
-#define UINT_FAST16_TYPE (LONG_TYPE_SIZE == 64 && !OPTION_MUSL ? "long unsigned int" : "unsigned int")
-#define UINT_FAST32_TYPE (LONG_TYPE_SIZE == 64 && !OPTION_MUSL ? "long unsigned int" : "unsigned int")
+#define UINT_FAST16_TYPE (LONG_TYPE_SIZE == 64 && !NEEDS_CORRECTION ? "long unsigned int" : "unsigned int")
+#define UINT_FAST32_TYPE (LONG_TYPE_SIZE == 64 && !NEEDS_CORRECTION ? "long unsigned int" : "unsigned int")
 #define UINT_FAST64_TYPE (LONG_TYPE_SIZE == 64 ? "long unsigned int" : "long long unsigned int")
 
 #define INTPTR_TYPE (LONG_TYPE_SIZE == 64 ? "long int" : "int")
