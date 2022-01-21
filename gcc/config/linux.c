@@ -28,7 +28,7 @@ bool
 linux_libc_has_function (enum function_class fn_class,
 			 tree type ATTRIBUTE_UNUSED)
 {
-  if (OPTION_GLIBC || OPTION_MUSL)
+  if (OPTION_GLIBC || OPTION_MUSL || OPTION_LIBSYSTEM)
     return true;
   if (OPTION_BIONIC)
     if (fn_class == function_c94
