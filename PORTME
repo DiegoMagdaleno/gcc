@@ -9,9 +9,9 @@ This change was done to MUSL
 Config.sub
 ==============
 
-- In line 1687 we add "system" as a libc option
+- In line 1687 we add "libsystem" as a libc option
 - In line 1698 we add "Utopia" as an operating system
-- In line 1775 we add both "linux-utopia*" and "linux-system*" to the list of valid kernel libc implementation
+- In line 1745 we add both "linux-utopia*" and "linux-libsystem*" to the list of valid kernel libc implementation
 - We add "-system" to line 1749 in order to tell that our libc is not a standalone operating system
 
 Config.gcc
