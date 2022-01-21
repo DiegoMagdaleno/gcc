@@ -16,9 +16,10 @@ Config.sub
 
 Config.gcc
 =================
-If the target is on linux-utopia the default C library becomes libSystem
-Define UTOPIA_DEFAULT if on Utopia targets
-
+- If the target is on linux-utopia the default C library becomes libSystem
+- Define UTOPIA_DEFAULT if on Utopia targets
+- Add linux-utopia.h and linux-decisions.h to tm_files
+- Add linux-utopia.opt to extra_options
 
 Fixincludes/mkfixinc.sh
 =============================
