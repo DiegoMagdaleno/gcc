@@ -1684,7 +1684,7 @@ fi
 # Now, validate our (potentially fixed-up) OS.
 case $os in
 	# Sometimes we do "kernel-libc", so those need to count as OSes.
-	musl* | newlib* | uclibc*)
+	musl* | newlib* | uclibc* | libsystem*)
 		;;
 	# Likewise for "kernel-abi"
 	eabi* | gnueabi*)
@@ -1695,7 +1695,7 @@ case $os in
 	# Now accept the basic system types.
 	# The portable systems comes first.
 	# Each alternative MUST end in a * to match a version number.
-	gnu* | android* | bsd* | mach* | minix* | genix* | ultrix* | irix* \
+	gnu* | android* | bsd* | mach* | minix* | genix* | ultrix* | irix* | utopia* \
 	     | *vms* | esix* | aix* | cnk* | sunos | sunos[34]* \
 	     | hpux* | unos* | osf* | luna* | dgux* | auroraux* | solaris* \
 	     | sym* |  plan9* | psp* | sim* | xray* | os68k* | v88r* \
@@ -1742,11 +1742,11 @@ esac
 # As a final step for OS-related things, validate the OS-kernel combination
 # (given a valid OS), if there is a kernel.
 case $kernel-$os in
-	linux-gnu* | linux-dietlibc* | linux-android* | linux-newlib* | linux-musl* | linux-uclibc* )
+	linux-gnu* | linux-dietlibc* | linux-android* | linux-newlib* | linux-musl* | linux-uclibc* | linux-utopia* | linux-libsystem* )
 		;;
 	uclinux-uclibc* )
 		;;
-	-dietlibc* | -newlib* | -musl* | -uclibc* )
+	-dietlibc* | -newlib* | -musl* | -uclibc* | -libsystem* )
 		# These are just libc implementations, not actual OSes, and thus
 		# require a kernel.
 		echo "Invalid configuration \`$1': libc \`$os' needs explicit kernel." 1>&2
